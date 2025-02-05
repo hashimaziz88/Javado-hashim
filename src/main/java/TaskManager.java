@@ -14,8 +14,12 @@ public class TaskManager {
         tasks.add(task);
     }
 
-    public List<String> listTasks() {
-        System.out.println(tasks);
+    public  List<String> listTasks() {
+//
+//        return new ArrayList<>(tasks);
+        for (String task: tasks){
+            System.out.println(task);
+        }
         return new ArrayList<>(tasks);
     }
 
