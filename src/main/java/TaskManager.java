@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class TaskManager {
     private List<String> tasks; // hint: will change in iteration 3
@@ -12,20 +9,33 @@ public class TaskManager {
     public TaskManager() {
         // Initialize tasks list
         tasks = new ArrayList<>();
+        String data =(ReadTasks("/home/wt/Documents/hashim/DebugSquad/Javado-hashim/src/main/resources/task_read.csv").toString());
+        if(data.isEmpty()){
+            tasks = new ArrayList<>();
+        }
+        tasks.add(data);
     }
 
-    public static void  ReadTasks(String args) throws IOException {
-        Scanner sc = new Scanner(new File("/home/wt/Documents/hashim/DebugSquad/Javado-hashim/src/main/resources/task_read.csv"));
-        sc.useDelimiter(",");   //sets the delimiter pattern
-        while (sc.hasNext())  //returns a boolean value
-        {
-            String task = Arrays.toString(sc.next().split(","));
-            System.out.println(task);
+    public List<String> ReadTasks(String args) {
+        try {
+            List<String> data = new ArrayList<>();
+             // replace with the path to your own CSV file
+            File file = new File(args);
+            Scanner s = new Scanner(file);
 
-            //find and returns the next complete token from this scanner
+            while (s.hasNextLine()) {
+                List<String> lineData = Arrays.asList(s.nextLine().split(","));
+                String lineData1 = lineData.get(1);
+                data.add(lineData1);
+            }
+
+            s.close();
+            return data;
+        } catch (Exception e) {
+            System.out.println(e);
+
         }
-
-        sc.close();
+        return Collections.emptyList();
     }
 
     public void addTask(String task) {
@@ -33,9 +43,10 @@ public class TaskManager {
     }
 
     public  List<String> listTasks() {
-//
+        System.out.println(tasks.size());
 //        return new ArrayList<>(tasks);
         for (String task: tasks){
+
             System.out.println(task);
         }
         return new ArrayList<>(tasks);
@@ -50,6 +61,7 @@ public class TaskManager {
     }
 
     public static void main(String[] args) throws IOException {
-        ReadTasks("resources/tasks_read.csv");
+        TaskManager taskManager = new TaskManager();
+        taskManager.listTasks();
     }
 }
