@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class TaskManager {
     private List<String> tasks; // hint: will change in iteration 3
@@ -9,8 +12,8 @@ public class TaskManager {
 
     public TaskManager() {
         // Initialize tasks list
-        tasks = new ArrayList<>();
         tasks = (ReadTasks("/home/wt/Documents/hashim/DebugSquad/Javado-hashim/src/main/resources/task_read.csv"));
+        System.out.println(tasks);
         System.out.println(tasks);
     }
 
@@ -34,7 +37,7 @@ public class TaskManager {
             System.out.println(e);
 
         }
-        return Collections.emptyList();
+        return new ArrayList<>();
     }
 
     public void addTask(String task) {
@@ -74,7 +77,6 @@ public class TaskManager {
 
         } catch (IOException e) {
             e.printStackTrace();
-            ;
         } finally {
             try {
                 assert fr != null;
