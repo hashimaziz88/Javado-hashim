@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -88,7 +86,8 @@ public class TaskManager {
             System.out.println("The task list is currently empty. ");
             return;
         }
-        for (Task task1 : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task1 = tasks.get(i);
             if (task1.toString().equals(task)) {
                 tasks.remove(task1);
             }
@@ -96,7 +95,7 @@ public class TaskManager {
 
     }
 
-    public static void writeUsingFileWriter(@NotNull ArrayList<Task> data) {
+    public static void writeUsingFileWriter(ArrayList<Task> data) {
         File file = new File("tasks.csv");
         FileWriter fr = null;
 
