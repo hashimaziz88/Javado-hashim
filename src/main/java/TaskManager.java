@@ -1,23 +1,26 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskManager {
-    private List<String> tasks; // hint: will change in iteration 3
+    private ArrayList<Task> tasks; // hint: will change in iteration 3
 
     public TaskManager() {
         // Initialize tasks list
+        tasks = new ArrayList<>();
         File file = new File("tasks.csv");
         FileWriter fr = null;
         boolean exists = file.exists();
 
-        if (exists){
+        if (exists) {
             System.out.println("here");
             tasks = (ReadTasks("tasks.csv"));
 
-        }
-        else {
+        } else {
             try {
                 fr = new FileWriter(file);
                 tasks = new ArrayList<>();
@@ -38,21 +41,22 @@ public class TaskManager {
         }
     }
 
-    public List<String> ReadTasks(String args) {
+    public ArrayList<Task> ReadTasks(String args) {
         try {
-            List<String> data = new ArrayList<>();
+            ArrayList<Task> data = new ArrayList<>();
             // replace with the path to your own CSV file
             File file = new File(args);
             Scanner s = new Scanner(file);
 
             while (s.hasNextLine()) {
                 String lineData = s.nextLine();
-                data.add(lineData);
+                data.add(new Task(lineData));
                 System.out.println(lineData);
             }
 
             s.close();
-            return data;
+            ArrayList<Task> data1 = data;
+            return data1;
         } catch (Exception e) {
             System.out.println(e);
 
@@ -61,36 +65,45 @@ public class TaskManager {
     }
 
     public void addTask(String task) {
-        tasks.add(task);
+        tasks.add(new Task(task));
     }
 
-    public List<String> listTasks() {
+    public ArrayList<Task> listTasks() {
 //        return new ArrayList<>(tasks);
         if (tasks == null) {
-            tasks = new ArrayList<>();
+            tasks = new ArrayList<Task>();
             System.out.println("The task list is currently empty. ");
         }
         System.out.println(tasks.size());
 
-        for (String task : tasks) {
+        for (Task task : tasks) {
 
             System.out.println(task);
         }
-        return new ArrayList<>(tasks);
+        return new ArrayList<Task>(tasks);
     }
 
     public void deleteTask(String task) {
-//        leave for iteration 4
+        if (tasks.isEmpty()) {
+            System.out.println("The task list is currently empty. ");
+            return;
+        }
+        for (Task task1 : tasks) {
+            if (task1.toString().equals(task)) {
+                tasks.remove(task1);
+            }
+        }
+
     }
 
-    public static void writeUsingFileWriter(List<String> data) {
+    public static void writeUsingFileWriter(@NotNull ArrayList<Task> data) {
         File file = new File("tasks.csv");
         FileWriter fr = null;
 
         try {
             fr = new FileWriter(file);
-            for (String item : data) {
-                String a = String.format("%s\n",  item);
+            for (Task item : data) {
+                String a = String.format("%s\n", item.getLineData(item));
                 System.out.print(a);
                 fr.write(a);
             }
