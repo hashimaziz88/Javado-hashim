@@ -11,10 +11,7 @@ public class Task {
         return lineData.trim();
     }
 
-    public void setLineData(String lineData) {
-        this.lineData = lineData.trim();
-    }
-
+    @Override
     public String toString() {
         return lineData;
     }
