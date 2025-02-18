@@ -9,19 +9,16 @@ public class TaskManager {
 
     public TaskManager() {
         // Initialize tasks list
-        tasks = new ArrayList<>();
         File file = new File("tasks.csv");
         FileWriter fr = null;
         boolean exists = file.exists();
 
         if (exists) {
-            System.out.println("here");
             tasks = (ReadTasks("tasks.csv"));
 
         } else {
             try {
                 fr = new FileWriter(file);
-                tasks = new ArrayList<>();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,13 +50,12 @@ public class TaskManager {
             }
 
             s.close();
-            ArrayList<Task> data1 = data;
-            return data1;
+            return data;
         } catch (Exception e) {
             System.out.println(e);
 
         }
-        return new ArrayList<>(tasks);
+        return tasks;
     }
 
     public void addTask(String task) {
@@ -68,23 +64,19 @@ public class TaskManager {
 
     public ArrayList<Task> listTasks() {
 //        return new ArrayList<>(tasks);
-        if (tasks == null) {
-            tasks = new ArrayList<>();
+        if (tasks.isEmpty()) {
             System.out.println("The task list is currently empty. ");
         }
-        System.out.println(tasks.size());
 
         for (Task task : tasks) {
-
             System.out.println(task);
         }
-        return new ArrayList<>(tasks);
+        return tasks;
     }
 
     public void deleteTask(String task) {
         if (tasks.isEmpty()) {
             System.out.println("The task list is currently empty. ");
-            return;
         }
         for (int i = 0; i < tasks.size(); i++) {
             Task task1 = tasks.get(i);
