@@ -7,7 +7,7 @@ public class Task {
     }
 
 
-    public String getLineData(Task task) {
+    public  String getLineData() {
         return lineData.trim();
     }
 

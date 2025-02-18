@@ -94,8 +94,7 @@ public class TaskManager {
         try {
             fr = new FileWriter(file);
             for (Task item : data) {
-                String a = String.format("%s\n", item.getLineData(item));
-                System.out.print(a);
+                String a = String.format("%s\n", item.getLineData());
                 fr.write(a);
             }
 
