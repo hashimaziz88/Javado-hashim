@@ -71,7 +71,7 @@ public class TaskManager {
     public ArrayList<Task> listTasks() {
 //        return new ArrayList<>(tasks);
         if (tasks == null) {
-            tasks = new ArrayList<Task>();
+            tasks = new ArrayList<>();
             System.out.println("The task list is currently empty. ");
         }
         System.out.println(tasks.size());
@@ -80,7 +80,7 @@ public class TaskManager {
 
             System.out.println(task);
         }
-        return new ArrayList<Task>(tasks);
+        return new ArrayList<>(tasks);
     }
 
     public void deleteTask(String task) {
@@ -123,12 +123,5 @@ public class TaskManager {
 
     public void exit() {
         writeUsingFileWriter(tasks);
-    }
-
-    public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
-        taskManager.listTasks();
-
-
     }
 }
