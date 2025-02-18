@@ -1,20 +1,41 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class TaskManager {
     private List<String> tasks; // hint: will change in iteration 3
 
-
     public TaskManager() {
         // Initialize tasks list
-        tasks = (ReadTasks("/home/wt/Documents/hashim/DebugSquad/Javado-hashim/src/main/resources/task_read.csv"));
-        System.out.println(tasks);
-        System.out.println(tasks);
+        File file = new File("tasks.csv");
+        FileWriter fr = null;
+        boolean exists = file.exists();
+
+        if (exists){
+            System.out.println("here");
+            tasks = (ReadTasks("tasks.csv"));
+
+        }
+        else {
+            try {
+                fr = new FileWriter(file);
+                tasks = new ArrayList<>();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    assert fr != null;
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+        }
     }
 
     public List<String> ReadTasks(String args) {
@@ -25,10 +46,9 @@ public class TaskManager {
             Scanner s = new Scanner(file);
 
             while (s.hasNextLine()) {
-                List<String> lineData = Arrays.asList(s.nextLine().split(","));
-                String lineData1 = lineData.get(1);
-                data.add(lineData1);
-
+                String lineData = s.nextLine();
+                data.add(lineData);
+                System.out.println(lineData);
             }
 
             s.close();
@@ -37,7 +57,7 @@ public class TaskManager {
             System.out.println(e);
 
         }
-        return new ArrayList<>();
+        return new ArrayList<>(tasks);
     }
 
     public void addTask(String task) {
@@ -45,11 +65,13 @@ public class TaskManager {
     }
 
     public List<String> listTasks() {
-        System.out.println(tasks.size());
 //        return new ArrayList<>(tasks);
-        if (tasks.isEmpty()) {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
             System.out.println("The task list is currently empty. ");
         }
+        System.out.println(tasks.size());
+
         for (String task : tasks) {
 
             System.out.println(task);
@@ -62,15 +84,13 @@ public class TaskManager {
     }
 
     public static void writeUsingFileWriter(List<String> data) {
-        File file = new File("/home/wt/Documents/hashim/DebugSquad/Javado-hashim/src/main/resources/task_read.csv");
+        File file = new File("tasks.csv");
         FileWriter fr = null;
 
         try {
             fr = new FileWriter(file);
-            int count = 0;
             for (String item : data) {
-                count += 1;
-                String a = String.format("%d,%s\n", count, item);
+                String a = String.format("%s\n",  item);
                 System.out.print(a);
                 fr.write(a);
             }
@@ -94,6 +114,7 @@ public class TaskManager {
 
     public static void main(String[] args) {
         TaskManager taskManager = new TaskManager();
+        taskManager.listTasks();
 
 
     }
