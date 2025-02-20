@@ -1,13 +1,17 @@
 public class Task {
     //    leave empty this is for iteration 3
-    private String lineData;
+    private String title;
+    private String description;
+    private boolean status;
 
-    public Task(String lineData) {
-        this.lineData = lineData.trim();
+    public Task(String title, String description, boolean status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
     }
 
 
-    public  String getLineData() {
+    public String getLineData() {
         return lineData.trim();
     }
 

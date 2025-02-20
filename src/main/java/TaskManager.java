@@ -58,7 +58,7 @@ public class TaskManager {
         return tasks;
     }
 
-    public void addTask(String task) {
+    public void addTask(Task task) {
         tasks.add(new Task(task));
     }
 

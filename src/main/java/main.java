@@ -11,7 +11,8 @@ public class main {
             System.out.println("1. Add Task");
             System.out.println("2. List Tasks");
             System.out.println("3. Delete Task");
-            System.out.println("4. Exit");
+            System.out.println("4. Mark Task as Complete");
+            System.out.println("5. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -20,8 +21,10 @@ public class main {
             switch (choice) {
                 case 1:
                     System.out.print("Enter task: ");
-                    String task = scanner.nextLine();
-                    manager.addTask(task);
+                    String title = scanner.nextLine();
+                    System.out.print("Enter description: ");
+                    String description = scanner.nextLine();
+                    manager.addTask(new Task(title, description, false));
                     break;
                 case 2:
                     System.out.println("Tasks: " + manager.listTasks());
@@ -33,6 +36,12 @@ public class main {
                     System.out.println("Deleting...");
                     break;
                 case 4:
+                    System.out.println("Tasks: " + manager.listTasks());
+                    System.out.print("Enter a task to mark as complete: ");
+                    String ta = scanner.nextLine();
+                    System.out.println("Marked task as complete: " + ta);
+                    System.exit(0);
+                case 5:
                     manager.exit();
                     System.out.println("Exiting......");
                     System.exit(0);
