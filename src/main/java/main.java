@@ -30,7 +30,7 @@ public class main {
                     System.out.println("Tasks: " + manager.listTasks());
                     break;
                 case 3:
-                    System.out.print("Enter task to delete: ");
+                    System.out.print("Enter a task to delete: ");
                     String tas = scanner.nextLine();
                     manager.deleteTask(tas);
                     System.out.println("Deleting...");
@@ -40,7 +40,6 @@ public class main {
                     System.out.print("Enter a task to mark as complete: ");
                     String ta = scanner.nextLine();
                     System.out.println("Marked task as complete: " + ta);
-                    System.exit(0);
                 case 5:
                     manager.exit();
                     System.out.println("Exiting......");

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.valueOf;
+
 public class TaskManager {
     private ArrayList<Task> tasks; // hint: will change in iteration 3
 
@@ -34,6 +37,7 @@ public class TaskManager {
             }
 
         }
+        System.out.println();
     }
 
     public ArrayList<Task> ReadTasks(String args) {
@@ -45,8 +49,9 @@ public class TaskManager {
 
             while (s.hasNextLine()) {
                 String lineData = s.nextLine();
-                data.add(new Task(lineData));
-                System.out.println(lineData);
+//
+                String[] lineDataSplit = lineData.split(",");
+                data.add(new Task(lineDataSplit[0],lineDataSplit[1], Boolean.parseBoolean(lineDataSplit[2])));
             }
 
             s.close();
@@ -59,8 +64,10 @@ public class TaskManager {
     }
 
     public void addTask(Task task) {
-        tasks.add(new Task(task));
+        System.out.println("Adding task to taskManager: " + task.hashCode());
+        tasks.add(task);
     }
+
 
     public ArrayList<Task> listTasks() {
 //        return new ArrayList<>(tasks);
@@ -69,7 +76,7 @@ public class TaskManager {
         }
 
         for (Task task : tasks) {
-            System.out.println(task);
+            System.out.println(task.toString());
         }
         return tasks;
     }
@@ -80,7 +87,7 @@ public class TaskManager {
         }
         for (int i = 0; i < tasks.size(); i++) {
             Task task1 = tasks.get(i);
-            if (task1.toString().equals(task)) {
+            if (task1.toString().equals(task.toString())) {
                 tasks.remove(task1);
             }
         }
@@ -94,7 +101,7 @@ public class TaskManager {
         try {
             fr = new FileWriter(file);
             for (Task item : data) {
-                String a = String.format("%s\n", item.getLineData());
+                String a = String.format("%s\n", item.getTitle());
                 fr.write(a);
             }
 
@@ -111,7 +118,32 @@ public class TaskManager {
         }
     }
 
+    public void markTaskAsComplete(String taskString) {
+        for (Task task : tasks) {
+            System.out.println("Checking task: " + task.hashCode() + " - " + task);
+            if (task.toString().equals(taskString)) {
+                System.out.println("Match found! Marking as complete.");
+                task.setComplete();
+                return;
+            }
+        }
+    }
+
+
+
     public void exit() {
         writeUsingFileWriter(tasks);
     }
+
+//    public static void main(String[] args) {
+//        TaskManager taskmanager = new TaskManager();
+//        Task task = new Task("Buy groceries", "Get milk, eggs, and bread", false);
+//        Task task2 = new Task("Buy groceries2", "Get milk, eggs, and bread", false);
+//        Task task3 = new Task("Buy groceries", "Get milk, eggs, and bread", false);
+//        taskmanager.addTask(task);
+//        taskmanager.addTask(task2);
+//        taskmanager.addTask(task3);
+//        taskmanager.listTasks();
+//        System.out.println(taskmanager.listTasks());
+//    }
 }
