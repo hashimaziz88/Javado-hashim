@@ -60,12 +60,12 @@ public class Tier345tests {
         });
         assertEquals("Invalid menu option!", exception.getMessage());
     }
-//
-//    @Test
-//    void testInvalidTaskDeletion() {
-//        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-//            taskManager.deleteTask(new Task("Non-existent", "This task is not in the list", false));
-//        });
-//        assertEquals("Task not found!", exception.getMessage());
-//    }
+
+    @Test
+    void testInvalidTaskDeletion() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            taskManager.deleteTask(String.valueOf(new Task("Non-existent", "This task is not in the list", false)));
+        });
+        assertEquals("Task not found!", exception.getMessage());
+    }
 }

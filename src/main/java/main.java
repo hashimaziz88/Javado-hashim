@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         TaskManager manager = new TaskManager();
         Scanner scanner = new Scanner(System.in);
 
@@ -18,7 +18,9 @@ public class main {
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
-            switch (choice) {
+            int processedChoice = manager.processMenuChoice(choice);
+
+            switch (processedChoice) {
                 case 1:
                     System.out.print("Enter task: ");
                     String title = scanner.nextLine();

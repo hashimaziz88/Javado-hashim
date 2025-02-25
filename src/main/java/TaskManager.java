@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.valueOf;
 
 public class TaskManager {
     private ArrayList<Task> tasks; // hint: will change in iteration 3
 
     public TaskManager() {
-        // Initialize tasks list
         File file = new File("tasks.csv");
         FileWriter fr = null;
         boolean exists = file.exists();
@@ -82,16 +79,15 @@ public class TaskManager {
     }
 
     public void deleteTask(String task) {
-        if (tasks.isEmpty()) {
-            System.out.println("The task list is currently empty. ");
-        }
+
         for (int i = 0; i < tasks.size(); i++) {
             Task task1 = tasks.get(i);
             if (task1.toString().equals(task.toString())) {
                 tasks.remove(task1);
+                return;
             }
-        }
-
+               }
+        throw new IllegalArgumentException("Task not found!");
     }
 
     public static void writeUsingFileWriter(ArrayList<Task> data) {
@@ -118,6 +114,15 @@ public class TaskManager {
         }
     }
 
+    public int processMenuChoice(int choice) throws IllegalArgumentException {
+            if (choice < 0 || choice> 5){
+                String s = "Invalid menu option!";
+                throw new IllegalArgumentException(s);
+            }
+    return choice;
+
+    }
+
     public void markTaskAsComplete(String taskString) {
         for (Task task : tasks) {
             System.out.println("Checking task: " + task.hashCode() + " - " + task);
@@ -135,15 +140,4 @@ public class TaskManager {
         writeUsingFileWriter(tasks);
     }
 
-//    public static void main(String[] args) {
-//        TaskManager taskmanager = new TaskManager();
-//        Task task = new Task("Buy groceries", "Get milk, eggs, and bread", false);
-//        Task task2 = new Task("Buy groceries2", "Get milk, eggs, and bread", false);
-//        Task task3 = new Task("Buy groceries", "Get milk, eggs, and bread", false);
-//        taskmanager.addTask(task);
-//        taskmanager.addTask(task2);
-//        taskmanager.addTask(task3);
-//        taskmanager.listTasks();
-//        System.out.println(taskmanager.listTasks());
-//    }
 }
